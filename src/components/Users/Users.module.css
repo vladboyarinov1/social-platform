@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.disabledContainer {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.wrapper {
+    display: flex;
+    /*border: 1px solid #B23850;*/
+    max-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    /*background-color: #c9c9c9;*/
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 10px 5px 5px #a2a2a2;
+    flex-wrap: wrap;
+}
+
+.pagesBlock {
+    border: 1px solid;
+    display: inline-block;
+    padding: 0 10px;
+
+}
+
+.currentPage {
+    color: rebeccapurple;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.page {
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+}
+
+.img {
+    width: 40px;
+    height: 40px;
+}
+
+.fullName {
+    font-weight: 600;
+}
+
+.status {
+
+}
+
+.locationBlock {
+}
+
+.button {
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 30px;
+    border: none;
+    background-color: #155bcb;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+.unfollowBtn {
+    background-color: #B23850;
+}

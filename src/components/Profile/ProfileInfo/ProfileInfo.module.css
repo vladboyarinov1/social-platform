@@ -1,0 +1,31 @@
+.avatarImg {
+    width: 140px;
+    height: 140px;
+}
+.name {
+    padding: 20px 0;
+    font-weight: 600;
+    font-size: 21px;
+}
+
+.textCols {
+    overflow: hidden;
+}
+
+.textColsLeft {
+    float: left;
+    min-width: 12%;
+    font-weight: 600;
+}
+
+.textColsLeft div {
+    margin-bottom: 6px;
+}
+
+.textColsRight {
+    margin-left: 14%;
+}
+
+.textColsRight div {
+    margin-bottom: 6px;
+}
