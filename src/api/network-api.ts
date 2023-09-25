@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {UsersPageType} from '../reducers/users-reducer/users-reducer';
 import {FormValuesType} from '../components/common/Login/Login';
+import {UserProfile} from '../reducers/profile-reducer/profile-reducer';
+
 export type ResponseType<T = {}> = {
     resultCode: number
     fieldsErrors: []
@@ -45,5 +47,8 @@ export const ProfileAPI = {
     },
     updateStatus(status: string) {
         return instance.put(`profile/status`, {status})
+    },
+    updateProfileData(data: UserProfile) {
+        return instance.put(`profile`, data)
     }
 }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {
     getUserProfile,
     setUserProfile,
-    setUserStatusTC,
+    setUserStatusTC, updateProfileDataTC,
     updateStatusTC
 } from '../../reducers/profile-reducer/profile-reducer';
 import {Profile} from './Profile';
@@ -29,7 +29,7 @@ class ProfileContainer extends React.Component<any> {
     render() {
         return (
             <>
-                <Profile profile={this.props.profile} posts={this.props.posts} status={this.props.status}
+                <Profile updateProfileDataTC={this.props.updateProfileDataTC} profile={this.props.profile} posts={this.props.posts} status={this.props.status}
                          updateStatus={this.props.updateStatusTC}/>
             </>
         )
@@ -47,5 +47,6 @@ export default compose(connect(mapStateToProps, {
     setUserProfile,
     getUserProfile,
     setUserStatusTC,
-    updateStatusTC
+    updateStatusTC,
+    updateProfileDataTC
 }), witchAuthRedirect)(ProfileContainer)

@@ -1,22 +1,20 @@
-import {PostsType, ProfilePageType} from '../../store';
-import {v1} from 'uuid';
 import {Dispatch} from 'redux';
 import {ProfileAPI} from '../../api/network-api';
 
-export const profileReducer = (state: ProfilePageType = initState, action: ActionType
+export const profileReducer = (state: UserProfile | {} = {}, action: ActionType
 ) => {
     switch (action.type) {
-        case 'ADD-POST':
-            const newPost: PostsType = {
-                id: v1(),
-                avatar: '',
-                message: action.postText,
-                likes: 3
-            }
-            return {
-                ...state,
-                posts: [newPost, ...state.posts]
-            };
+        // case 'ADD-POST':
+        //     const newPost: PostsType = {
+        //         id: v1(),
+        //         avatar: '',
+        //         message: action.postText,
+        //         likes: 3
+        //     }
+        //     return {
+        //         ...state,
+        //         posts: [newPost, ...state.posts]
+        //     };
         case 'SET-USER-PROFILE':
             return {
                 ...state, profile: action.data
@@ -66,6 +64,17 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
         throw new Error('Error in UPDATE STATUS for user');
     }
 };
+export const updateProfileDataTC = (data: UserProfile) => async (dispatch: Dispatch) => {
+    try {
+        const res = await ProfileAPI.updateProfileData(data)
+        if (res.data.resultCode === 0) {
+            dispatch(setUserProfile(data))
+
+        }
+    } catch (e) {
+        throw new Error('Error')
+    }
+}
 
 //types
 export type UserProfile = {
@@ -97,9 +106,3 @@ type ActionType = AddPostATType
     | SetUserProfileType
     | SetStatusType
     | UpdateStatus
-const initState: ProfilePageType = {
-    profile: null,
-    posts: [],
-    status: null,
-}
-
