@@ -3,6 +3,7 @@ import s from './Profile.module.css'
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {ProfilePageType} from '../../store';
 import {UserProfile} from '../../reducers/profile-reducer/profile-reducer';
+import {light} from '@mui/material/styles/createPalette';
 
 interface PropsType extends ProfilePageType {
     status: string,
@@ -11,6 +12,7 @@ interface PropsType extends ProfilePageType {
 }
 
 export const Profile: FC<PropsType> = (props) => {
+    console.log(props.profile)
     return (
         <div className={s.wrapper}>
             <ProfileInfo  updateProfileDataTC={props.updateProfileDataTC} profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>

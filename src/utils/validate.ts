@@ -17,6 +17,9 @@ export const validate = (values: UserProfile): FormikErrorType => {
     if (!values.aboutMe) {
         errors.aboutMe = 'Обязательное поле';
     }
+    if (!values.lookingForAJobDescription) {
+        errors.lookingForAJobDescription = 'Обязательное поле';
+    }
 
 
     return errors;

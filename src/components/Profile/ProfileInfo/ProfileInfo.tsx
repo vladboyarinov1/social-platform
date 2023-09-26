@@ -24,28 +24,29 @@ export const ProfileInfo: FC<PropsType> = (props) => {
                     <EditableSpan status={props.status} updateStatus={props.updateStatus}/> :
                     <div style={{padding: '10px'}}>{props.status || '---'}</div>}
 
-                <ProfileUserData initialValues={props.profile || {
-                    aboutMe: '',
-                    contacts: {
-                        facebook: null,
-                        website: null,
-                        vk: '',
-                        twitter: null,
-                        instagram: null,
-                        youtube: null,
-                        github: null,
-                        mainLink: null,
-                    },
-                    lookingForAJob: false,
-                    lookingForAJobDescription: null,
-                    fullName: '',
-                    userId: 0,
-                    photos: {
-                        small: '',
-                        large: '',
-                    },
-                }} onSubmit={props.updateProfileDataTC}/>
+                <ProfileUserData initialValues={props.profile} onSubmit={props.updateProfileDataTC}/>
             </div>
         </>
     );
 };
+// || {
+//                     aboutMe: '',
+//                     contacts: {
+//                         facebook: null,
+//                         website: null,
+//                         vk: null,
+//                         twitter: null,
+//                         instagram: null,
+//                         youtube: null,
+//                         github: null,
+//                         mainLink: null,
+//                     },
+//                     lookingForAJob: false,
+//                     lookingForAJobDescription: null,
+//                     fullName: '',
+//                     userId: 0,
+//                     photos: {
+//                         small: '',
+//                         large: '',
+//                     },
+//                 }

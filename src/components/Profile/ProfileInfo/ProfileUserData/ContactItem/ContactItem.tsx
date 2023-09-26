@@ -1,21 +1,24 @@
-import React, { FC } from 'react';
-import { ErrorMessage, Field, FieldProps, FormikValues } from 'formik';
+import React, {FC} from 'react';
+import {ErrorMessage, Field, FieldProps} from 'formik';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
-import { UserProfile } from '../../../../../reducers/profile-reducer/profile-reducer';
+import {UserProfile} from '../../../../../reducers/profile-reducer/profile-reducer';
 
 type ContactItemType = {
     isEditing: boolean;
     initialValues: UserProfile;
     objectKeyName: keyof UserProfile;
+    formik: any
 };
 
 export const ContactItem: FC<ContactItemType> = ({
                                                      isEditing,
                                                      initialValues,
                                                      objectKeyName,
+                                                     formik
                                                  }) => {
     const isCheckbox = typeof initialValues[objectKeyName] === 'boolean';
+
 
     return (
         <div>
@@ -37,7 +40,9 @@ export const ContactItem: FC<ContactItemType> = ({
                             <TextField
                                 {...field}
                                 variant="standard"
-                                defaultValue={initialValues[objectKeyName] || ''}
+                                error={formik.touched[objectKeyName] && !!formik.errors[objectKeyName]}
+                                helperText={formik.touched[objectKeyName] && formik.errors[objectKeyName]}
+                                // value={initialValues[objectKeyName] || ''}
                                 type="text"
                                 id={objectKeyName}
                             />

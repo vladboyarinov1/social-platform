@@ -67,6 +67,7 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 };
 export const updateProfileDataTC = (data: UserProfile) => async (dispatch: Dispatch, rejectWithValue: any) => {
     try {
+        debugger
         const res = await ProfileAPI.updateProfileData(data)
         if (res.data.resultCode === 0) {
             dispatch(setUserProfile(data))
