@@ -8,6 +8,7 @@ import {ErrorMessage, Field, FieldProps, Form, Formik} from 'formik';
 import {UserProfile} from '../../../../reducers/profile-reducer/profile-reducer';
 import {Button} from '@mui/material';
 import {validate} from '../../../../utils/validate';
+import {ContactItem} from './ContactItem/ContactItem';
 
 
 type PropsType = {
@@ -34,71 +35,15 @@ export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit}) => {
                         <Form>
                             <FormControl>
                                 <FormGroup>
-                                    <div>
-                                        <label htmlFor="fullName">First Name</label>
-                                        {isEditing ? (
-                                            <Field variant={'standard'}
-                                                   as={TextField}
-                                                   defaultValue={initialValues.fullName}
-                                                   type="text"
-                                                   id="fullName"
-                                                   name="fullName"
-                                            />
-                                        ) : (
-                                            <span>{initialValues.fullName}</span>
-                                        )}
-                                        <ErrorMessage name="fullName" component="div"/>
-                                    </div>
+                                    <ContactItem initialValues={initialValues} isEditing={isEditing}
+                                                 objectKeyName={'fullName'}/>
+                                    <ContactItem initialValues={initialValues} isEditing={isEditing}
+                                                 objectKeyName={'aboutMe'}/>
+                                    <ContactItem initialValues={initialValues} isEditing={isEditing}
+                                                 objectKeyName={'lookingForAJob'}/>
+                                    <ContactItem initialValues={initialValues} isEditing={isEditing}
+                                                 objectKeyName={'lookingForAJobDescription'}/>
 
-                                    <div>
-                                        <label htmlFor="aboutMe">aboutMe: </label>
-                                        {isEditing ? (
-                                            <Field variant={'standard'}
-                                                   as={TextField}
-                                                   defaultValue={initialValues.aboutMe}
-                                                   type="text"
-                                                   id="aboutMe"
-                                                   name="aboutMe"
-                                            />
-                                        ) : (
-                                            <span>{initialValues.aboutMe || '-'}</span>
-                                        )}
-                                        <ErrorMessage name="aboutMe" component="div"/>
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="lookingForAJob">lookingForAJob: </label>
-                                        {isEditing ? (
-                                            <Field variant={'standard'} name="lookingForAJob">
-                                                {({field}: FieldProps<UserProfile>) => (
-                                                    <Checkbox
-                                                        {...field}
-                                                        checked={formik.values.lookingForAJob}
-                                                        id="lookingForAJob"
-                                                    />
-                                                )}
-                                            </Field>
-                                        ) : (
-                                            <span>{initialValues.lookingForAJob ? '✅' : '❌'}</span>
-                                        )}
-                                        <ErrorMessage name="lookingForAJob" component="div"/>
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="lookingForAJobDescription">lookingForAJobDescription: </label>
-                                        {isEditing ? (
-                                            <Field variant={'standard'}
-                                                   as={TextField}
-                                                   defaultValue={initialValues.lookingForAJobDescription || ''}
-                                                   type="text"
-                                                   id="lookingForAJobDescription"
-                                                   name="lookingForAJobDescription"
-                                            />
-                                        ) : (
-                                            <span>{initialValues.lookingForAJobDescription || '-'}</span>
-                                        )}
-                                        <ErrorMessage name="lookingForAJobDescription" component="div"/>
-                                    </div>
                                     {Object.entries(initialValues.contacts).map(([key, value]) => (
                                         <div key={key}>
                                             <label htmlFor={key}>{key}:</label>
