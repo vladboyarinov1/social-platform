@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {ProfileAPI} from '../../api/network-api';
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 
 export const profileReducer = (state: UserProfile | {} = {}, action: ActionType
 ) => {
@@ -64,15 +65,21 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
         throw new Error('Error in UPDATE STATUS for user');
     }
 };
-export const updateProfileDataTC = (data: UserProfile) => async (dispatch: Dispatch) => {
+export const updateProfileDataTC = (data: UserProfile) => async (dispatch: Dispatch, rejectWithValue: any) => {
     try {
         const res = await ProfileAPI.updateProfileData(data)
         if (res.data.resultCode === 0) {
             dispatch(setUserProfile(data))
 
+        }else {
+            handleServerAppError(res.data, dispatch)
+            return rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
-    } catch (e) {
-        throw new Error('Error')
+    } catch (e: any) {
+        handleServerNetworkError(e, dispatch)
+        return rejectWithValue({errors: [e.errors], fieldsErrors: undefined})
+    } finally {
+        // dispatch(setLinearProgressAC({value: false}))
     }
 }
 

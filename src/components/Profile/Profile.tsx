@@ -1,9 +1,8 @@
 import React, {FC} from 'react';
 import s from './Profile.module.css'
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {ProfilePageType} from '../../store';
-import {updateProfileDataTC, UserProfile} from '../../reducers/profile-reducer/profile-reducer';
+import {UserProfile} from '../../reducers/profile-reducer/profile-reducer';
 
 interface PropsType extends ProfilePageType {
     status: string,
