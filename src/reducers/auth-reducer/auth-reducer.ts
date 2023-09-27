@@ -1,7 +1,10 @@
-import {Dispatch} from 'redux';
-import {AuthAPI} from '../../api/network-api';
+import {AnyAction, Dispatch} from 'redux';
+import {AuthAPI, SecurityCaptcha} from '../../api/network-api';
 import {FormValuesType} from '../../components/common/Login/Login';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {RootState} from '@reduxjs/toolkit/dist/query/core/apiState';
+import {AppRootStateType} from '../../redux/redux-store';
 
 export const authReducer = (state: AuthType = initState, action: ActionTypes) => {
     switch (action.type) {
@@ -15,6 +18,12 @@ export const authReducer = (state: AuthType = initState, action: ActionTypes) =>
             return {
                 ...state, isAuth: action.value
             }
+        case 'SET-CAPTCHA':
+            return {
+                ...state,
+                captchaUrl: action.url
+            }
+
         default:
             return state
     }
@@ -23,6 +32,7 @@ export const authReducer = (state: AuthType = initState, action: ActionTypes) =>
 export const setAuthUserData = (data: AuthType) => ({type: 'SET-USER-DATA', payload: data} as const)
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const setCaptcha = (url: null | string) => ({type: 'SET-CAPTCHA', url} as const)
 
 export const setAuthUserTC = () => async (dispatch: Dispatch) => {
     let res = await AuthAPI.setAuthUser()
@@ -34,12 +44,15 @@ export const setAuthUserTC = () => async (dispatch: Dispatch) => {
         throw new Error(e)
     }
 }
-export const loginTC = (data: FormValuesType) => async (dispatch: Dispatch) => {
+export const loginTC = (data: FormValuesType) => async (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
     let res = await AuthAPI.login(data)
     try {
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(true))
         } else {
+            if (res.data.resultCode === 10) {
+                await dispatch(getCaptcha())
+            }
             handleServerAppError(res.data, dispatch)
         }
     } catch (e: any) {
@@ -59,6 +72,11 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         handleServerNetworkError(e, dispatch)
     }
 }
+export const getCaptcha = () => async (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
+    let res = await SecurityCaptcha.getCaptchaUrl()
+    dispatch(setCaptcha(res.data.url))
+}
+
 //types
 export type AuthType = {
     userId: number | null
@@ -66,20 +84,22 @@ export type AuthType = {
     login: string | null
     isAuth: boolean
     id: number | null
+    captchaUrl: string | null
 
 }
-type SetUserData = ReturnType<typeof setAuthUserData>
-type SetIsLoggedInAC = ReturnType<typeof setIsLoggedInAC>
-
 const initState: AuthType = {
     id: null,
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 
 }
-export type ActionTypes = SetUserData | SetIsLoggedInAC
+export type ActionTypes =
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setCaptcha>
 
 
 

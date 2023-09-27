@@ -38,6 +38,11 @@ export const AuthAPI = {
         return instance.delete(`auth/login`)
     }
 }
+export const SecurityCaptcha = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
+    }
+}
 export const ProfileAPI = {
     getUserProfile(profileId: number) {
         return instance.get(`profile/${profileId}`)
@@ -47,6 +52,13 @@ export const ProfileAPI = {
     },
     updateStatus(status: string) {
         return instance.put(`profile/status`, {status})
+    },
+    updatePhoto(photo: File) {
+        let formData = new FormData()
+        formData.append('image', photo)
+        return instance.put(`profile/photo`, formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
     },
     updateProfileData(data: UserProfile) {
         return instance.put(`profile`, data)

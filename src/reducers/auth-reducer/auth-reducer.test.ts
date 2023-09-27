@@ -7,6 +7,7 @@ describe('authReducer', () => {
         email: null,
         login: null,
         isAuth: false,
+        captchaUrl: null
     };
 
     test('should set user data', () => {
@@ -16,6 +17,7 @@ describe('authReducer', () => {
             email: 'test@example.com',
             login: 'testuser',
             isAuth: true,
+            captchaUrl: null
         };
 
         const action: ActionTypes = setAuthUserData(userData);

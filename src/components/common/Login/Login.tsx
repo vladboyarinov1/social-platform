@@ -17,6 +17,7 @@ export type FormValuesType = {
 export const Login: FC<any> = () => {
     const dispatch: any = useDispatch()
     let isLogin = useAppSelector<any>(state => state.auth.isAuth)
+    let captchaUrl = useAppSelector<any>(state => state.auth.captchaUrl)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -50,6 +51,12 @@ export const Login: FC<any> = () => {
                                variant="outlined" type="password"
                                {...formik.getFieldProps('password')} helperText={formik.errors.password}/>
                 </div>
+                {captchaUrl && <img src={captchaUrl} alt=""/>}
+                {captchaUrl &&   <div style={{width: '100%'}}>
+                    <TextField sx={{margin: '20px 0', width: '100%'}} id="captcha" label="captcha"
+                               variant="outlined" type="text"
+                               {...formik.getFieldProps('captcha')} helperText={formik.errors.password}/>
+                </div>}
 
                 <div style={{width: '100%'}}>
                     <Button sx={{width: '100%'}} size="large" type="submit" variant="contained">Submit</Button>

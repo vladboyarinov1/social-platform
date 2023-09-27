@@ -9,13 +9,13 @@ import {Button} from '@mui/material';
 import {validate} from '../../../../utils/validate';
 import {ContactItem} from './ContactItem/ContactItem';
 
-
 type PropsType = {
     initialValues: UserProfile | null;
     onSubmit: (values: UserProfile) => void;
+    isOwnProfile: boolean
 };
 
-export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit}) => {
+export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit, isOwnProfile}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState<UserProfile | null>(null);
@@ -35,21 +35,15 @@ export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit}) => {
         onSubmit(values);
         setIsEditing(false);
     };
-//async (values, {setSubmitting}) => {
-//                         onSubmit(values);
-//                         setSubmitting(false);
-//                         setIsEditing(false);
-//                     }
+
     return (
         <Grid container>
             <Grid item paddingTop="10px">
                 {userData && (<Formik<UserProfile>
                     initialValues={userData}
                     onSubmit={handleFormSubmit}
-                    validate={validate}
-                >
+                    validate={validate}>
                     {formik => (
-
                         <Form>
                             <FormControl>
                                 <FormGroup>
@@ -62,30 +56,35 @@ export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit}) => {
                                     <ContactItem initialValues={userData} isEditing={isEditing}
                                                  objectKeyName={'lookingForAJob'} formik={formik}/>
 
-                                    {Object.entries(userData.contacts).map(([key, value]) => (
-                                        <div key={key}>
-                                            <label htmlFor={key}>{key}:</label>
-                                            {isEditing ? (
-                                                <TextField variant="standard" type="text"
-                                                           id={key}
-                                                           {...formik.getFieldProps(`contacts['${key}']`)}/>
-                                            ) : (
-                                                <span>{value || 'нет данных'}</span>
+                                    {userData && typeof userData.contacts === 'object' ? (
+                                        Object.entries(userData.contacts).map(([key, value]) => (
+                                            <div key={key}>
+                                                <label htmlFor={key}>{key}:</label>
+                                                {isEditing ? (
+                                                    <TextField variant="standard" type="text"
+                                                               id={key} {...formik.getFieldProps(`contacts['${key}']`)}/>
+                                                ) : (
+                                                    <span>{value || 'нет данных'}</span>
+                                                )}
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div>Нет данных о контактах</div>
+                                    )}
+                                    {
+                                        isOwnProfile && <div>
+                                            <Button type="button" onClick={() => setIsEditing(!isEditing)}
+                                                    disabled={formik.isSubmitting}>
+                                                {isEditing ? 'Отменить' : 'Изменить'}
+                                            </Button>
+                                            {isEditing && (
+                                                <Button variant={'outlined'} type="submit" disabled={formik.isSubmitting}>
+                                                    Сохранить
+                                                </Button>
                                             )}
                                         </div>
-                                    ))}
+                                    }
 
-                                    <div>
-                                        <Button type="button" onClick={() => setIsEditing(!isEditing)}
-                                                disabled={formik.isSubmitting}>
-                                            {isEditing ? 'Отменить' : 'Изменить'}
-                                        </Button>
-                                        {isEditing && (
-                                            <Button variant={'outlined'} type="submit" disabled={formik.isSubmitting}>
-                                                Сохранить
-                                            </Button>
-                                        )}
-                                    </div>
                                 </FormGroup>
                             </FormControl>
                         </Form>

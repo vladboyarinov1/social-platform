@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 import {ProfileAPI} from '../../api/network-api';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 
-export const profileReducer = (state: UserProfile | {} = {}, action: ActionType
+export const profileReducer = (state: { profile: UserProfile | null } = {profile: null}, action: ActionType
 ) => {
     switch (action.type) {
         // case 'ADD-POST':
@@ -19,6 +19,7 @@ export const profileReducer = (state: UserProfile | {} = {}, action: ActionType
         case 'SET-USER-PROFILE':
             return {
                 ...state, profile: action.data
+
             }
         case 'SET-STATUS':
             return {
@@ -31,6 +32,17 @@ export const profileReducer = (state: UserProfile | {} = {}, action: ActionType
                 ...state,
                 status: action.value
             }
+        case 'UPDATE-PHOTO':
+            // return {
+            //     ...state,
+            //     profile: {...state, photos: action.photo}
+            // }
+            return {
+                ...state,
+                profile: {
+                    ...state.profile, photos: action.photo
+                }
+            }
         default:
             return state
     }
@@ -40,6 +52,7 @@ export const addPostAC = (newPost: string) => ({type: 'ADD-POST', postText: newP
 export const setUserProfile = (data: UserProfile) => ({type: 'SET-USER-PROFILE', data} as const)
 export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
 export const updateStatus = (value: string) => ({type: 'UPDATE-STATUS', value} as const)
+export const updatePhoto = (photo: File) => ({type: 'UPDATE-PHOTO', photo} as const)
 
 export const getUserProfile = (profileId: number) => async (dispatch: Dispatch) => {
     try {
@@ -65,14 +78,25 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
         throw new Error('Error in UPDATE STATUS for user');
     }
 };
+export const updatePhotoTC = (photo: File) => async (dispatch: Dispatch) => {
+    debugger
+    let res = await ProfileAPI.updatePhoto(photo)
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(updatePhoto(res.data.data.photos))
+        }
+
+    } catch (e) {
+        console.log('error photo')
+    }
+}
 export const updateProfileDataTC = (data: UserProfile) => async (dispatch: Dispatch, rejectWithValue: any) => {
     try {
-        debugger
         const res = await ProfileAPI.updateProfileData(data)
         if (res.data.resultCode === 0) {
             dispatch(setUserProfile(data))
 
-        }else {
+        } else {
             handleServerAppError(res.data, dispatch)
             return rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
@@ -106,11 +130,10 @@ export type UserProfile = {
         large: string;
     };
 }
-type AddPostATType = ReturnType<typeof addPostAC>
-type SetUserProfileType = ReturnType<typeof setUserProfile>
-type SetStatusType = ReturnType<typeof setStatus>
-type UpdateStatus = ReturnType<typeof updateStatus>
-type ActionType = AddPostATType
-    | SetUserProfileType
-    | SetStatusType
-    | UpdateStatus
+
+type ActionType =
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof updateStatus>
+    | ReturnType<typeof updatePhoto>

@@ -7,7 +7,7 @@ import {UserProfile} from '../../../../../reducers/profile-reducer/profile-reduc
 type ContactItemType = {
     isEditing: boolean;
     initialValues: UserProfile;
-    objectKeyName: keyof UserProfile;
+    objectKeyName: keyof UserProfile ;
     formik: any
 };
 
@@ -22,7 +22,7 @@ export const ContactItem: FC<ContactItemType> = ({
 
     return (
         <div>
-            <label htmlFor={objectKeyName}>${objectKeyName}: </label>
+            <label htmlFor={objectKeyName}>{objectKeyName}: </label>
             {isEditing ? (
                 <Field name={objectKeyName}>
                     {({ field }: FieldProps<UserProfile>) =>
@@ -42,7 +42,6 @@ export const ContactItem: FC<ContactItemType> = ({
                                 variant="standard"
                                 error={formik.touched[objectKeyName] && !!formik.errors[objectKeyName]}
                                 helperText={formik.touched[objectKeyName] && formik.errors[objectKeyName]}
-                                // value={initialValues[objectKeyName] || ''}
                                 type="text"
                                 id={objectKeyName}
                             />
