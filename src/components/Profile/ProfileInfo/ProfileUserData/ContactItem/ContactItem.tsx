@@ -3,11 +3,12 @@ import {ErrorMessage, Field, FieldProps} from 'formik';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import {UserProfile} from '../../../../../reducers/profile-reducer/profile-reducer';
+import styled from 'styled-components';
 
 type ContactItemType = {
     isEditing: boolean;
     initialValues: UserProfile;
-    objectKeyName: keyof UserProfile ;
+    objectKeyName: keyof UserProfile;
     formik: any
 };
 
@@ -21,21 +22,21 @@ export const ContactItem: FC<ContactItemType> = ({
 
 
     return (
-        <div>
-            <label htmlFor={objectKeyName}>{objectKeyName}: </label>
+        <WrapperContact>
+            <Label htmlFor={objectKeyName}>{objectKeyName}: </Label>
             {isEditing ? (
                 <Field name={objectKeyName}>
-                    {({ field }: FieldProps<UserProfile>) =>
+                    {({field}: FieldProps<UserProfile>) =>
                         isCheckbox ? (
-                         <>
-                             <Checkbox
-                                 {...field}
-                                 checked={field.value as unknown as boolean}
-                                 id={objectKeyName}
-                                 color="primary"
-                             />
+                            <>
+                                <Checkbox
+                                    {...field}
+                                    checked={field.value as unknown as boolean}
+                                    id={objectKeyName}
+                                    color="primary"
+                                />
 
-                         </>
+                            </>
                         ) : (
                             <TextField
                                 {...field}
@@ -51,7 +52,17 @@ export const ContactItem: FC<ContactItemType> = ({
             ) : (
                 <span>{isCheckbox ? (initialValues[objectKeyName] ? '✅' : '❌') : initialValues[objectKeyName] || '-'}</span>
             )}
-            <ErrorMessage name={objectKeyName} component="div" />
-        </div>
+            <ErrorMessage name={objectKeyName} component="div"/>
+        </WrapperContact>
     );
 };
+export const Label = styled('label')`
+  font-weight: bold;
+  margin-right: 10px;
+`
+export const WrapperContact = styled('div')`
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+  flex-wrap: wrap;
+`

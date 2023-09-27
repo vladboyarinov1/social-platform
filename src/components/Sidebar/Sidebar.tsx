@@ -21,16 +21,14 @@ type PropsType = {
 export const Sidebar: FC<PropsType> = ({isAuth, login}) => {
     const dispatch: any = useDispatch()
 
+
+
     const onClickButtonHandler = () => {
         dispatch(logoutTC())
     }
     return (
         <div className={s.wrapper}>
             <div className={s.sideNav}>
-                <a className={s.logo} href="src/components">
-                    <div className={s.logoImg}><LogoImg/></div>
-                    <div className={s.logoIcon}><LogoMobile/></div>
-                </a>
                 <div className={s.links}>
                     <div><NavWrapper><NavLink to="/profile"><ProfileImg className={s.navIcons}/><p>Profile</p></NavLink></NavWrapper>
                         <NavWrapper><NavLink to="/dialogs"><MessageImg className={s.navIcons}/><p>Messages</p></NavLink></NavWrapper>

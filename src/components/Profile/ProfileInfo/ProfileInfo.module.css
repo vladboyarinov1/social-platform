@@ -1,6 +1,7 @@
 .avatarImg {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
+    border-radius: 4px;
 }
 .name {
     padding: 20px 0;

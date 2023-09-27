@@ -5,9 +5,14 @@ import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 import {Form, Formik} from 'formik';
 import {UserProfile} from '../../../../reducers/profile-reducer/profile-reducer';
-import {Button} from '@mui/material';
+import {Button, Collapse, List, ListItemButton, ListItemText} from '@mui/material';
 import {validate} from '../../../../utils/validate';
-import {ContactItem} from './ContactItem/ContactItem';
+import {ContactItem, Label, WrapperContact} from './ContactItem/ContactItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import LinkIcon from '@mui/icons-material/Link';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+
 
 type PropsType = {
     initialValues: UserProfile | null;
@@ -19,6 +24,11 @@ export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit, isOwnPr
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState<UserProfile | null>(null);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
 
     useEffect(() => {
         if (initialValues) {
@@ -56,35 +66,46 @@ export const ProfileUserData: FC<PropsType> = ({initialValues, onSubmit, isOwnPr
                                     <ContactItem initialValues={userData} isEditing={isEditing}
                                                  objectKeyName={'lookingForAJob'} formik={formik}/>
 
-                                    {userData && typeof userData.contacts === 'object' ? (
-                                        Object.entries(userData.contacts).map(([key, value]) => (
-                                            <div key={key}>
-                                                <label htmlFor={key}>{key}:</label>
-                                                {isEditing ? (
-                                                    <TextField variant="standard" type="text"
-                                                               id={key} {...formik.getFieldProps(`contacts['${key}']`)}/>
-                                                ) : (
-                                                    <span>{value || 'нет данных'}</span>
-                                                )}
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div>Нет данных о контактах</div>
-                                    )}
+
+                                    <ListItemButton onClick={handleClick}>
+                                        <ListItemIcon>
+                                            <LinkIcon/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Other links"/>
+                                        {open ? <ExpandLess/> : <ExpandMore/>}
+                                    </ListItemButton>
+                                    <Collapse in={open} timeout="auto" unmountOnExit>
+                                        <List component="div" disablePadding>
+                                            {userData && typeof userData.contacts === 'object' ? (
+                                                Object.entries(userData.contacts).map(([key, value]) => (
+                                                    <WrapperContact key={key} >
+                                                        <Label htmlFor={key}>{key}:</Label>
+                                                        {isEditing ? (
+                                                            <TextField variant="standard" type="text"
+                                                                       id={key} {...formik.getFieldProps(`contacts['${key}']`)}/>
+                                                        ) : (
+                                                            <span>{value || '-'}</span>
+                                                        )}
+                                                    </WrapperContact>
+                                                ))
+                                            ) : (
+                                                <div>Нет данных о контактах</div>
+                                            )}
+                                        </List>
+                                    </Collapse>
                                     {
-                                        isOwnProfile && <div>
-                                            <Button type="button" onClick={() => setIsEditing(!isEditing)}
-                                                    disabled={formik.isSubmitting}>
+                                        isOwnProfile && <div style={{padding: '10px 10px'}}>
+                                            <Button style={{marginRight: '10px'}}  type="button" onClick={() => setIsEditing(!isEditing)}
+                                                    disabled={formik.isSubmitting} variant='outlined'>
                                                 {isEditing ? 'Отменить' : 'Изменить'}
                                             </Button>
                                             {isEditing && (
-                                                <Button variant={'outlined'} type="submit" disabled={formik.isSubmitting}>
+                                                <Button variant='contained' type="submit" disabled={formik.isSubmitting}>
                                                     Сохранить
                                                 </Button>
                                             )}
                                         </div>
                                     }
-
                                 </FormGroup>
                             </FormControl>
                         </Form>
