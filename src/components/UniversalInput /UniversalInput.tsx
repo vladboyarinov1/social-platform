@@ -24,7 +24,7 @@ export const UniversalInput: FC<InputType> = (props) => {
 };
 
 let Textarea = styled.input`
-  width: calc(100% - 150px); /* вычитаем ширину кнопки */
+  width: calc(80% - 150px); /* вычитаем ширину кнопки */
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0px 5px 20px rgba(29, 33, 38, 0.03), 0px 1px 2px rgba(29, 33, 38, 0.1);
@@ -36,7 +36,7 @@ let Textarea = styled.input`
   margin-right: 10px; /* добавляем отступ справа */
 
   @media screen and (max-width: 760px) {
-    width: 100%;
+    width: 80%;
     margin-right: 0;
     margin-bottom: 10px;
   }

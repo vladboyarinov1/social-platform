@@ -81,7 +81,6 @@ export const DialogItem: FC<PropsType> = (props) => {
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        // overscrollBehavior: 'none'
                     }}
                 >
                     <div>
@@ -95,15 +94,16 @@ export const DialogItem: FC<PropsType> = (props) => {
                             ))
                         }
 
-
                         <div ref={messagesEndRef}/>
                         {/* Реф для прокрутки к последнему сообщению */}
                     </div>
 
-                    <div className={s.sendForm}>
-                        <UniversalInput value={message} setValue={setMessage} onEnter={onKeyDownAddPost}
-                                        placeholder={'Enter'}/>
-                        <SuperButton title={'SEND'} onClick={addNewMessageHandler} disabled={false}/>
+                    <div className={s.form}>
+                        <div className={s.sendForm}>
+                            <UniversalInput value={message} setValue={setMessage} onEnter={onKeyDownAddPost}
+                                            placeholder={'Enter'}/>
+                            <SuperButton title={'SEND'} onClick={addNewMessageHandler} disabled={false}/>
+                        </div>
                     </div>
                 </div>
             </div>
