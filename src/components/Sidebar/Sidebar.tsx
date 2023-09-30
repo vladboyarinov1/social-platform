@@ -4,8 +4,6 @@ import {ReactComponent as ProfileImg} from '../../img/icons/profile.svg';
 import {ReactComponent as MessageImg} from '../../img/icons/messages.svg';
 import {ReactComponent as NewsImg} from '../../img/icons/news.svg';
 import {ReactComponent as SettingsImg} from '../../img/icons/settings.svg';
-import {ReactComponent as LogoImg} from '../../img/icons/logo.svg';
-import {ReactComponent as LogoMobile} from '../../img/icons/logoMobile.svg';
 import {ReactComponent as UsersImg} from '../../img/icons/users.svg';
 import {ReactComponent as Login} from '../../img/icons/login.svg';
 import {NavLink} from 'react-router-dom';
@@ -52,7 +50,7 @@ export const Sidebar: FC<PropsType> = ({isAuth, login}) => {
 const NavWrapper = styled.div`
   padding: 0 0 15px 0;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
     & a p {
       display: none;
     }

@@ -9,6 +9,7 @@ import {
 import {Profile} from './Profile';
 import {witchAuthRedirect} from '../HOC/witchAuthRedirect/witchAuthRedirect';
 import {compose} from 'redux';
+import commonStyles from '../common/styles/commonStyles.module.css'
 
 class ProfileContainer extends React.Component<any> {
 
@@ -28,10 +29,10 @@ class ProfileContainer extends React.Component<any> {
 
     render() {
         return (
-            <>
+            <div className={commonStyles.WrapperContent}>
                 <Profile  updateProfileDataTC={this.props.updateProfileDataTC} profile={this.props.profile} posts={this.props.posts} status={this.props.status} updatePhotoTC={this.props.updatePhotoTC}
                          updateStatus={this.props.updateStatusTC}/>
-            </>
+            </div>
         )
     }
 }

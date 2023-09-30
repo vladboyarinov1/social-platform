@@ -23,12 +23,5 @@ const mapStateToProps = (state: any) => {
         auth: state.auth
     }
 }
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//     return {
-//         setAuthUserData: (data: any) => {
-//             dispatch(setAuthUserData(data))
-//         }
-//     }
-// }
 
 export default connect(mapStateToProps, {setAuthUserTC})(SidebarContainer)

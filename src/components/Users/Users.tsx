@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
 import s from './Users.module.css';
-import userAvatar from '../../img/userAvatar.svg';
 import {Pagination} from '@mui/material';
-import {followTC, setDisabled, unFollowTC, UserType} from '../../reducers/users-reducer/users-reducer';
+import {UserType} from '../../reducers/users-reducer/users-reducer';
 import {Preloader} from '../common/Preloader/Preloader';
-import {Link} from 'react-router-dom';
 import {User} from './User/User';
 
 type PropsType = {

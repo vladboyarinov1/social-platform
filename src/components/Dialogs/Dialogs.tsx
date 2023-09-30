@@ -1,8 +1,8 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {DialogItem} from './DialogItem/DialogItem';
-import {UniversalInput} from '../UniversalInput /UniversalInput';
-import {SuperButton} from '../SuperButton/SuperButton';
+import commonStyles from '../common/styles/commonStyles.module.css'
 import {DialogsPageType} from '../../store';
+import s from './Dialogs.module.css'
 
 type PropsType = {
     dialogs: DialogsPageType
@@ -12,21 +12,12 @@ type PropsType = {
 export const Dialogs: FC<PropsType> = (props) => {
     const {dialogs, addNewMessage} = props
 
-    const [message, setMessage] = useState<string>('')
 
-    const addNewMessageHandler = () => {
-        addNewMessage(message)
-        setMessage('')
-    }
-    const onKeyDownAddPost = () => {
-        addNewMessage(message)
-        setMessage('')
-    }
 
-    return <>
-        <div>Dialogs</div>
-        <DialogItem users={dialogs.users} messages={dialogs.messages}/>
-        <UniversalInput value={message} setValue={setMessage} onEnter={onKeyDownAddPost} placeholder={'Enter'}/>
-        <SuperButton title={'SEND'} onClick={addNewMessageHandler} disabled={false}/>
-    </>
+
+
+    return <div className={`${commonStyles.WrapperContent} ${s.dialogsWrapper}`}>
+        <DialogItem users={dialogs.users} messages={dialogs.messages} addNewMessage={addNewMessage}/>
+
+    </div>
 }

@@ -7,27 +7,41 @@ const initState: DialogsPageType = {
         {id: v1(), name: 'Andrew'},
         {id: v1(), name: 'Sveta'},
         {id: v1(), name: 'Sasha'},
-        {id: v1(), name: 'Viktor'},
-        {id: v1(), name: 'Valera'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'VLAD'},
+        {id: v1(), name: 'Andrew'},
+        {id: v1(), name: 'Sveta'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Sasha'},
     ],
     messages: [
-        {id: v1(), message: 'Yo! How are you?'},
-        {id: v1(), message: 'Hey! Thanks!'},
-        {id: v1(), message: 'Ok. See you soon!'},
-        {id: v1(), message: 'Where are you???'}
+        {id: v1(), message: 'Hey Megan ! It\'s been a while 😃'},
+        {id: v1(), message: 'When can we meet ?'},
+        {id: v1(), message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque itaque veniam vitae. Modi, quibusdam.'},
     ],
 }
 
 export const dialogsReducer = (state = initState, action: DialogsAT) => {
     switch (action.type) {
         case 'ADD-MESSAGE':
+            debugger
             const newMessage: MessagesType = {
                 id: v1(),
                 message: action.messageText
             }
             return {
                 ...state,
-                messages: [newMessage, ...state.messages]
+                messages: [ ...state.messages,newMessage]
             };
 
         default:

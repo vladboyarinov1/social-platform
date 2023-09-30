@@ -1,4 +1,3 @@
-import React, {FC} from 'react';
 import {addMessageAC} from '../../reducers/dialogs-reducer/dialogs-reducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
