@@ -4,7 +4,7 @@ import {updatePhotoTC, UserProfile} from '../../../reducers/profile-reducer/prof
 import {EditableSpan} from '../../EditableSpan/EditableSpan';
 import {ProfileUserData} from './ProfileUserData/ProfileUserData';
 import {ChangeEventHandler, FC} from 'react';
-import {Button} from '@mui/material';
+import {Avatar, Button} from '@mui/material';
 import styled from 'styled-components';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import {useSelector} from 'react-redux';
@@ -37,7 +37,7 @@ export const ProfileInfo: FC<PropsType> = (props) => {
         <>
             <div className={s.profile}>
                 <div className={s.avatar}>
-                    <img className={s.avatarImg} src={props.profile?.photos.small || userAvatar} alt=""/>
+                    <Avatar sx={{width: '140px', height: '140px'}} variant={'rounded'} src={props.profile?.photos.small}/>
                 </div>
                 {isOwnProfile ? (
                     <EditableSpan status={props.status} updateStatus={props.updateStatus}/>

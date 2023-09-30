@@ -7,6 +7,7 @@ import {useDispatch} from 'react-redux';
 import {loginTC} from '../../../reducers/auth-reducer/auth-reducer';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../../redux/redux-store';
+import container from '../styles/commonStyles.module.css'
 
 export type FormValuesType = {
     email: string
@@ -39,7 +40,7 @@ export const Login: FC<any> = () => {
         return <Navigate to={'/profile'}/>
     }
     return (
-        <>
+        <div className={s.container}>
             <form onSubmit={formik.handleSubmit} className={s.form}>
                 <div style={{width: '100%'}}>
                     <TextField sx={{margin: '20px 0', width: '100%'}} id="email" label="email" variant="outlined"
@@ -62,6 +63,6 @@ export const Login: FC<any> = () => {
                     <Button sx={{width: '100%'}} size="large" type="submit" variant="contained">Submit</Button>
                 </div>
             </form>
-        </>
+        </div>
     );
 };

@@ -4,7 +4,7 @@ import {Pagination} from '@mui/material';
 import {UserType} from '../../reducers/users-reducer/users-reducer';
 import {Preloader} from '../common/Preloader/Preloader';
 import {User} from './User/User';
-
+import container from  '../common/styles/commonStyles.module.css'
 type PropsType = {
     items: UserType[]
     totalUserCount: number
@@ -31,7 +31,7 @@ export const Users: FC<PropsType> = (props) => {
     const disabled = (currentId: number) => props.followingInProgress.some(id => currentId === id)
 
     return (
-        <>
+        <div className={`${container.WrapperContent} ${s.usersContainer}`}>
             <Preloader isFetching={props.isFetching}/>
             <div className={!props.isFetching ? s.container : `${s.container} ${s.disabledContainer}`}>
                 <div>
@@ -46,9 +46,9 @@ export const Users: FC<PropsType> = (props) => {
                     }
                 </div>
 
-                <div className={s.pagination}><Pagination size="large" count={pagesCount} page={props.currentPage}
-                                                          onChange={props.onPageChanged}/></div>
             </div>
-        </>
+            <div className={s.pagination}><Pagination size="large" count={pagesCount} page={props.currentPage}
+                                                      onChange={props.onPageChanged}/></div>
+        </div>
     );
 };

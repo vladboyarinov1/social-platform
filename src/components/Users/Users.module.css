@@ -1,8 +1,14 @@
 .container {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
+    /*height: 100%;*/
+
+}
+.usersContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
 }
 
 .disabledContainer {
@@ -20,9 +26,10 @@
     border-radius: 4px;
     padding: 5px 10px;
     /*background-color: #c9c9c9;*/
-    background-color: rgba(0, 0, 0, 0.1);
-    box-shadow: 10px 5px 5px #a2a2a2;
+    background-color: rgba(98, 97, 97, 0.14);
+    box-shadow: 10px 5px 5px rgba(162, 162, 162, 0.6);
     flex-wrap: wrap;
+    height: 66px;
 }
 
 .pagesBlock {
@@ -45,10 +52,10 @@
 }
 
 .pagination {
+    width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 0;
-
+    padding-bottom: 20px;
 }
 
 .img {
