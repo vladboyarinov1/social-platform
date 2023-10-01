@@ -21,8 +21,8 @@ export const Login: FC<any> = () => {
     let captchaUrl = useAppSelector<any>(state => state.auth.captchaUrl)
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: ''
+            email: 'free@samuraijs.com',
+            password: 'free'
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Invalid email address').required('Required'),
@@ -42,10 +42,22 @@ export const Login: FC<any> = () => {
     return (
         <div className={s.container}>
             <form onSubmit={formik.handleSubmit} className={s.form}>
+                <div>
+                    To log in get registered <a href={'https://social-network.samuraijs.com/'}>here </a>
+                    or use common test account credentials:
+                    Email: free@samuraijs.com
+                    Password: free
+                </div>
                 <div style={{width: '100%'}}>
-                    <TextField sx={{margin: '20px 0', width: '100%'}} id="email" label="email" variant="outlined"
-                               type="text"
-                               {...formik.getFieldProps('email')} helperText={formik.errors.email}/>
+                    <TextField
+                        sx={{margin: '20px 0', width: '100%'}}
+                        id="email"
+                        label="email"
+                        variant="outlined"
+                        type="text"
+                        {...formik.getFieldProps('email')}
+                        helperText={formik.errors.email}
+                    />
                 </div>
                 <div style={{width: '100%'}}>
                     <TextField sx={{margin: '20px 0', width: '100%'}} id="password" label="password"
@@ -53,7 +65,7 @@ export const Login: FC<any> = () => {
                                {...formik.getFieldProps('password')} helperText={formik.errors.password}/>
                 </div>
                 {captchaUrl && <img src={captchaUrl} alt=""/>}
-                {captchaUrl &&   <div style={{width: '100%'}}>
+                {captchaUrl && <div style={{width: '100%'}}>
                     <TextField sx={{margin: '20px 0', width: '100%'}} id="captcha" label="captcha"
                                variant="outlined" type="text"
                                {...formik.getFieldProps('captcha')} helperText={formik.errors.password}/>
