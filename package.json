@@ -2,7 +2,7 @@
   "name": "samurai-way",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "https://vladboyarinov1.github.io/social-platform",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
