@@ -70,17 +70,18 @@ export const DialogItem: FC<PropsType> = (props) => {
 
     return (
         <>
-            <div style={{display: 'flex', height: '100vh', overscrollBehavior: 'none'}}>
+            <div >
                 <div
                     style={{
-                        width: '100%',
-                        padding: '0 10px 0 10px',
-                        flex: '1',
+                        // width: '100%',
+                        // // padding: '0 10px 0 10px',
+                        // flex: '1',
                         overflowY: 'auto',
                         position: 'relative',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
+                        // display: 'flex',
+                        // flexDirection: 'column',
+                        // justifyContent: 'space-between',
+                        height: '700px'
                     }}
                 >
                     <div>
@@ -98,12 +99,13 @@ export const DialogItem: FC<PropsType> = (props) => {
                         {/* Реф для прокрутки к последнему сообщению */}
                     </div>
 
-                    <div className={s.form}>
-                        <div className={s.sendForm}>
-                            <UniversalInput value={message} setValue={setMessage} onEnter={onKeyDownAddPost}
-                                            placeholder={'Enter'}/>
-                            <SuperButton title={'SEND'} onClick={addNewMessageHandler} disabled={false}/>
-                        </div>
+
+                </div>
+                <div className={s.form}>
+                    <div className={s.sendForm}>
+                        <UniversalInput value={message} setValue={setMessage} onEnter={onKeyDownAddPost}
+                                        placeholder={'Enter'}/>
+                        <SuperButton title={'SEND'} onClick={addNewMessageHandler} disabled={false}/>
                     </div>
                 </div>
             </div>

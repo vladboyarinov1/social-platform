@@ -1,25 +1,15 @@
 .sendForm {
-    /*position: sticky;*/
-    /*bottom: 0;*/
-    /*background-color: #ffffff;*/
-    padding:20px 5px;
-    /*box-sizing: border-box;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*z-index: 999; !* Поднимает блок над другими элементами *!*/
-    /*overscroll-behavior: none;*/
-    /*position: fixed;*/
-    /*bottom: 0;*/
-
-    display: flex;
-    justify-content: start;
+    position: sticky;
+    bottom: 10px;
+    width: 100%;
 }
 
 .form {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+    padding: 10px 0;
     background-color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 
 .userCard {

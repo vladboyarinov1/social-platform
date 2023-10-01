@@ -66,11 +66,11 @@ const NavWrapper = styled.div`
 
   & > a.active {
     text-decoration: none;
-    color: #B23850;
+    color: #d32f2f;
   }
 
   & > a:hover {
-    color: dodgerblue;
+    color: #999a9a;
   }
 
 `
